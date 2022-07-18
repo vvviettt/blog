@@ -1,14 +1,7 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-function PostForm({
-  error,
-  title,
-  setTitle,
-  content,
-  setContent,
-  handleSubmit,
-}) {
+function PostForm({ title, setTitle, content, setContent, handleSubmit }) {
   return (
     <form className="p-8" onSubmit={handleSubmit}>
       <div className="mb-5">
@@ -26,7 +19,19 @@ function PostForm({
         <p className="mb-3">Nội dung</p>
         <CKEditor
           config={{
-            extraPlugins: [],
+            // plugins: [ Essentials ],
+            ckfinder: {
+              // The URL that the images are uploaded to.
+              uploadUrl: "http://localhost:8080/api/upload",
+
+              // Enable the XMLHttpRequest.withCredentials property.
+              withCredentials: true,
+
+              headers: {
+                "content-type": "application/json",
+                authorization: `${localStorage.getItem("token")}`,
+              },
+            },
           }}
           editor={ClassicEditor}
           data={content}

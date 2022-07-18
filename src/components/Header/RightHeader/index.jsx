@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFeather } from "@fortawesome/free-solid-svg-icons";
 
 import avatar from "~/assets/images/avatar_default.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "~/features/authSlice";
 function RightHeader({ user }) {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const logoutHandler = () => {
     dispatch(logout());
+    navigate("/");
   };
   if (user.isLoggedIn) {
     return (
@@ -55,8 +57,13 @@ function RightHeader({ user }) {
               <p className=" pl-2">{user.name}</p>
             </div>
             <ul>
-              <li className="py-2 px-2 mt-3 rounded-lg hover:bg-white cursor-pointer">
-                <Link to="/posts">Bài viết</Link>
+              <li className="mt-3 cursor-pointer">
+                <Link
+                  className="py-2 px-2 w-full block  rounded-lg hover:bg-white"
+                  to="/user/posts"
+                >
+                  Bài viết
+                </Link>
               </li>
               <li
                 className="py-2 px-2 mt-3 rounded-lg hover:bg-white cursor-pointer"

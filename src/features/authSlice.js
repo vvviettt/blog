@@ -60,7 +60,8 @@ export const authSlice = createSlice({
       state.error = action.error;
     },
     [refresh_login.fulfilled]: (state, action) => {
-      if (!action.payload.error) {
+      console.log(action);
+      if (action.payload.success) {
         state.isLoggedIn = true;
         state.id = action.payload.id;
         state.name = action.payload.name;
